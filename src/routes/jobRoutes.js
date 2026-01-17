@@ -6,11 +6,15 @@ const {
     
     createJob, 
     getJobs,
-    getJobById
+    getJobById, 
+    updateJob, 
+    deleteJob
 } = require("../controllers/jobController");
 
 router.post("/", authMiddleware, createJob);
 router.get("/", authMiddleware, getJobs);
 router.get("/:id", authMiddleware, getJobById);
+router.patch("/:id", authMiddleware, updateJob);
+router.delete("/:id", authMiddleware, deleteJob);
 
 module.exports = router;

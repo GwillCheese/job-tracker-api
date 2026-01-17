@@ -60,5 +60,42 @@ const getJobById = async (req, res) => {
   }
 };
 
+const updateJob = async (req, res) => {
+  try {
+    const jobId = Number(req.params.id);
+    const { companyName, jobTitle, status } = req.body;
 
-module.exports = { createJob, getJobs, getJobById };
+    const job = await prisma.application.findUnique({ where: { id: jobId } });
+    if (!job) return res.status(404).json({ message: "Job not found" });
+    if (job.userId !== req.userId) return res.status(403).json({ message: "Access denied" });
+
+    const updatedJob = await prisma.application.update({
+      where: { id: jobId },
+      data: { companyName, jobTitle, status },
+    });
+
+    res.json(updatedJob);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const deleteJob = async (req, res) => {
+  try {
+    const jobId = Number(req.params.id);
+
+    const job = await prisma.application.findUnique({ where: { id: jobId } });
+    if (!job) return res.status(404).json({ message: "Job not found" });
+    if (job.userId !== req.userId) return res.status(403).json({ message: "Access denied" });
+
+    await prisma.application.delete({ where: { id: jobId } });
+
+    res.json({ message: "Job deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { createJob, getJobs, getJobById, updateJob, deleteJob };

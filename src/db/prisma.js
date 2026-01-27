@@ -5,14 +5,11 @@ const { Pool } = require("pg");
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false  // FOR RAILWAY
+    rejectUnauthorized: false
   }
 });
 
-// Create Prisma adapter
 const adapter = new PrismaPg(pool);
-
-// Create Prisma client
 const prisma = new PrismaClient({ adapter });
 
 module.exports = prisma;

@@ -52,4 +52,4 @@ Authorization: Bearer <token>
 - `DELETE /jobs/:id`
 
 ## Deployed API
-Production URL: `https://your-app.up.railway.app`
+Production URL: `https://job-tracker-api-production-dfd7.up.railway.app/`

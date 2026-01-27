@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const prisma = require("../db/prisma");
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
 try {
 
   const { email, password } = req.body;
@@ -36,12 +36,11 @@ try {
   res.status(201).json({ id: user.id, email: user.email });
 
 } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
 try {
     
   const { email, password } = req.body;
@@ -75,8 +74,7 @@ try {
   res.json({ token });
   
 } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 

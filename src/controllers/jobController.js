@@ -1,6 +1,6 @@
 const prisma = require("../db/prisma");
 
-const createJob = async (req, res) => {
+const createJob = async (req, res, next) => {
     try{
   const { companyName, jobTitle, status } = req.body;
 
@@ -28,12 +28,11 @@ const createJob = async (req, res) => {
 
   res.status(201).json(job);
 } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 
-const getJobs = async (req, res) => {
+const getJobs = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status, companyName, jobTitle } = req.query;
 
@@ -96,12 +95,11 @@ const getJobs = async (req, res) => {
       data: jobs,
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 
-const getJobById = async (req, res) => {
+const getJobById = async (req, res, next) => {
   try {
     const jobId = Number(req.params.id);
 
@@ -123,12 +121,11 @@ const getJobById = async (req, res) => {
 
     res.json(job);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 
-const updateJob = async (req, res) => {
+const updateJob = async (req, res, next) => {
   try {
     const jobId = Number(req.params.id);
     const { companyName, jobTitle, status } = req.body;
@@ -159,12 +156,11 @@ const updateJob = async (req, res) => {
 
     res.json(updatedJob);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 
-const deleteJob = async (req, res) => {
+const deleteJob = async (req, res, next) => {
   try {
     const jobId = Number(req.params.id);
 
@@ -176,8 +172,7 @@ const deleteJob = async (req, res) => {
 
     res.json({ message: "Job deleted successfully" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
+    next(err);
   }
 };
 

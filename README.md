@@ -58,4 +58,4 @@ The Railway deployment below will expire after the trial period. For cost effici
 
 - Legacy Railway URL (will expire): `https://job-tracker-api-production-dfd7.up.railway.app/`
 
-- Current fullstack app (recommended): [Job Tracker on Vercel](https://job-tracker-danielkamanda.vercel.app/)
+- Current fullstack app (recommended): [Job Tracker GitHub](https://github.com/GwillCheese/job-tracker-nextjs-fullstack) | [Job Tracker on Vercel](https://job-tracker-danielkamanda.vercel.app/)
